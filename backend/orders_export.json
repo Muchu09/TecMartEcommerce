@@ -1,0 +1,38 @@
+[
+  {
+    "_id": "69c6d5c8e92f01cef9b479c8",
+    "user": "69c6d5c8e92f01cef9b479a1",
+    "item": "69c6d5c8e92f01cef9b479ab",
+    "status": "delivered",
+    "totalAmount": 85,
+    "createdAt": "2026-03-22T19:08:56.617Z",
+    "__v": 0
+  },
+  {
+    "_id": "69c6d5c8e92f01cef9b479c9",
+    "user": "69c6d5c8e92f01cef9b479a3",
+    "item": "69c6d5c8e92f01cef9b479b1",
+    "status": "shipped",
+    "totalAmount": 185,
+    "createdAt": "2026-03-25T19:08:56.617Z",
+    "__v": 0
+  },
+  {
+    "_id": "69c6d5c8e92f01cef9b479ca",
+    "user": "69c6d5c8e92f01cef9b479a4",
+    "item": "69c6d5c8e92f01cef9b479b7",
+    "status": "pending",
+    "totalAmount": 48,
+    "createdAt": "2026-03-26T19:08:56.617Z",
+    "__v": 0
+  },
+  {
+    "_id": "69c6d5c8e92f01cef9b479cb",
+    "user": "69c6d5c8e92f01cef9b479a2",
+    "item": "69c6d5c8e92f01cef9b479bf",
+    "status": "processing",
+    "totalAmount": 660,
+    "createdAt": "2026-03-24T19:08:56.617Z",
+    "__v": 0
+  }
+]

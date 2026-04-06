@@ -1,0 +1,175 @@
+[
+  {
+    "_id": "69c6d5c8e92f01cef9b479a0",
+    "username": "seller123",
+    "email": "seller@tecmart.com",
+    "password": "$2a$10$hashedpasswordhere",
+    "role": "user",
+    "phone": "",
+    "profilePicture": "https://ui-avatars.com/api/?name=User&background=random",
+    "preferences": {
+      "language": "English",
+      "notifications": true,
+      "darkTheme": false
+    },
+    "twoFactorEnabled": false,
+    "wishlist": [],
+    "addresses": [],
+    "loginHistory": [],
+    "__v": 0,
+    "createdAt": "2026-03-27T19:08:56.602Z",
+    "updatedAt": "2026-03-27T19:08:56.602Z"
+  },
+  {
+    "_id": "69c6d5c8e92f01cef9b479a1",
+    "username": "techstore",
+    "email": "tech@tecmart.com",
+    "password": "$2a$10$hashedpasswordhere",
+    "role": "user",
+    "phone": "",
+    "profilePicture": "https://ui-avatars.com/api/?name=User&background=random",
+    "preferences": {
+      "language": "English",
+      "notifications": true,
+      "darkTheme": false
+    },
+    "twoFactorEnabled": false,
+    "wishlist": [],
+    "addresses": [],
+    "loginHistory": [],
+    "__v": 0,
+    "createdAt": "2026-03-27T19:08:56.602Z",
+    "updatedAt": "2026-03-27T19:08:56.602Z"
+  },
+  {
+    "_id": "69c6d5c8e92f01cef9b479a2",
+    "username": "sportshub",
+    "email": "sports@tecmart.com",
+    "password": "$2a$10$hashedpasswordhere",
+    "role": "user",
+    "phone": "",
+    "profilePicture": "https://ui-avatars.com/api/?name=User&background=random",
+    "preferences": {
+      "language": "English",
+      "notifications": true,
+      "darkTheme": false
+    },
+    "twoFactorEnabled": false,
+    "wishlist": [],
+    "addresses": [],
+    "loginHistory": [],
+    "__v": 0,
+    "createdAt": "2026-03-27T19:08:56.602Z",
+    "updatedAt": "2026-03-27T19:08:56.602Z"
+  },
+  {
+    "_id": "69c6d5c8e92f01cef9b479a3",
+    "username": "bookworm",
+    "email": "books@tecmart.com",
+    "password": "$2a$10$hashedpasswordhere",
+    "role": "user",
+    "phone": "",
+    "profilePicture": "https://ui-avatars.com/api/?name=User&background=random",
+    "preferences": {
+      "language": "English",
+      "notifications": true,
+      "darkTheme": false
+    },
+    "twoFactorEnabled": false,
+    "wishlist": [],
+    "addresses": [],
+    "loginHistory": [],
+    "__v": 0,
+    "createdAt": "2026-03-27T19:08:56.602Z",
+    "updatedAt": "2026-03-27T19:08:56.602Z"
+  },
+  {
+    "_id": "69c6d5c8e92f01cef9b479a4",
+    "username": "musicman",
+    "email": "music@tecmart.com",
+    "password": "$2a$10$hashedpasswordhere",
+    "role": "user",
+    "phone": "",
+    "profilePicture": "https://ui-avatars.com/api/?name=User&background=random",
+    "preferences": {
+      "language": "English",
+      "notifications": true,
+      "darkTheme": false
+    },
+    "twoFactorEnabled": false,
+    "wishlist": [],
+    "addresses": [],
+    "loginHistory": [],
+    "__v": 0,
+    "createdAt": "2026-03-27T19:08:56.602Z",
+    "updatedAt": "2026-03-27T19:08:56.602Z"
+  },
+  {
+    "_id": "69c6d5c8e92f01cef9b479a5",
+    "username": "admin",
+    "email": "admin@tecmart.com",
+    "password": "$2a$10$adminpasswordhere",
+    "role": "admin",
+    "phone": "",
+    "profilePicture": "https://ui-avatars.com/api/?name=User&background=random",
+    "preferences": {
+      "language": "English",
+      "notifications": true,
+      "darkTheme": false
+    },
+    "twoFactorEnabled": false,
+    "wishlist": [],
+    "addresses": [],
+    "loginHistory": [],
+    "__v": 0,
+    "createdAt": "2026-03-27T19:08:56.602Z",
+    "updatedAt": "2026-03-27T19:08:56.602Z"
+  },
+  {
+    "_id": "69c7648abf8de78fe1cb6e68",
+    "username": "rifad",
+    "email": "rifad@gmail.com",
+    "password": "$2a$10$RYDJ/cHfMIFXwSP0fyq4v.J0FDyurgd3CtaxoCTYQd1xcxNyydy7K",
+    "role": "user",
+    "phone": "",
+    "profilePicture": "https://ui-avatars.com/api/?name=User&background=random",
+    "preferences": {
+      "language": "English",
+      "notifications": true,
+      "darkTheme": false
+    },
+    "twoFactorEnabled": false,
+    "wishlist": [],
+    "addresses": [],
+    "loginHistory": [],
+    "createdAt": "2026-03-28T05:18:02.890Z",
+    "updatedAt": "2026-03-28T05:33:53.801Z",
+    "__v": 6
+  },
+  {
+    "_id": "69c768fcd693a0c5f220a44c",
+    "username": "murshid ismayil pa",
+    "email": "murshidismayil2001@gmail.com",
+    "password": "$2a$10$989KnHnXAVeT1zB.bhoOB.7ptdTxPa3hyLfAIhD.JJzfsufaYKpg6",
+    "role": "admin",
+    "phone": "",
+    "profilePicture": "https://ui-avatars.com/api/?name=User&background=random",
+    "preferences": {
+      "language": "English",
+      "notifications": true,
+      "darkTheme": false
+    },
+    "twoFactorEnabled": false,
+    "wishlist": [
+      "69c6d5c8e92f01cef9b479b0",
+      "69c6d5c8e92f01cef9b479c4",
+      "69c6d5c8e92f01cef9b479c5",
+      "69c6d5c8e92f01cef9b479b8"
+    ],
+    "addresses": [],
+    "loginHistory": [],
+    "createdAt": "2026-03-28T05:37:00.811Z",
+    "updatedAt": "2026-03-31T05:31:01.822Z",
+    "__v": 10
+  }
+]

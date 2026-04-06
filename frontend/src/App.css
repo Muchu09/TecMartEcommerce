@@ -1,0 +1,211 @@
+/* Advanced global enhancements (theme vars, smooth scrolling, glass effect) */
+
+:root {
+  --page-bg: #f1f5f9;
+  --page-fg: #0f172a;
+  --primary: #2563eb;
+  --primary-2: #7c3aed;
+  --card-bg: rgba(255,255,255,0.82);
+  --card-border: rgba(15,23,42,0.08);
+  --shadow-soft: 0 18px 45px rgba(15,23,42,0.12);
+  --radius-lg: 1.25rem;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--page-bg);
+  color: var(--page-fg);
+  transition: background 220ms ease, color 220ms ease;
+}
+
+[data-theme= dark] {
+  --page-bg: #0b1120;
+  --page-fg: #e2e8f0;
+  --card-bg: rgba(15,23,42,0.75);
+  --card-border: rgba(148,163,184,0.12);
+  --shadow-soft: 0 18px 45px rgba(0,0,0,0.35);
+}
+
+.glass {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(14px);
+  box-shadow: var(--shadow-soft);
+  border-radius: var(--radius-lg);
+}
+
+.btn-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.65rem 1.25rem;
+  border-radius: 999px;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, var(--primary), var(--primary-2));
+  box-shadow: 0 12px 30px rgba(37, 99, 235, 0.2);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-cta:hover,
+.btn-cta:focus-visible {
+  transform: translateY(-1px);
+  box-shadow: 0 18px 35px rgba(37, 99, 235, 0.25);
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(15,23,42,0.05);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(37,99,235,0.45);
+  border-radius: 999px;
+  border: 3px solid rgba(15,23,42,0.15);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ========================================== */
+/* ADVANCED LOGO DESIGN */
+/* ========================================== */
+
+@keyframes logoGlow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(37, 99, 235, 0.4), inset 0 0 20px rgba(124, 58, 237, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(124, 58, 237, 0.6), inset 0 0 25px rgba(37, 99, 235, 0.15);
+  }
+}
+
+@keyframes logoPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.nav-logo {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  transition: transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1), filter 300ms ease;
+  padding: 8px 12px;
+  border-radius: 12px;
+}
+
+.nav-logo:hover {
+  transform: scale(1.08) translateY(-2px);
+  background: rgba(37, 99, 235, 0.08);
+}
+
+.logo-mark {
+  position: relative;
+  width: 42px;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #0ea5e9 0%, #7c3aed 50%, #ec4899 100%);
+  color: white;
+  font-weight: 900;
+  font-size: 18px;
+  letter-spacing: -1px;
+  box-shadow: 0 10px 30px rgba(37, 99, 235, 0.3);
+  transition: all 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  overflow: hidden;
+  animation: logoGlow 3s ease-in-out infinite;
+}
+
+.logo-mark::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  animation: shimmer 3s infinite;
+}
+
+.nav-logo:hover .logo-mark {
+  animation: logoPulse 0.6s ease-in-out;
+  box-shadow: 0 15px 40px rgba(124, 58, 237, 0.5), inset -2px -2px 5px rgba(0,0,0,0.1);
+  transform: rotateY(5deg);
+}
+
+.logo-text {
+  font-weight: 900;
+  font-size: 1.25rem;
+  background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.5px;
+  transition: all 300ms ease;
+}
+
+.nav-logo:hover .logo-text {
+  letter-spacing: 0px;
+  text-shadow: 0 0 20px rgba(37, 99, 235, 0.2);
+}
+
+/* Advanced Footer Brand Mark */
+.brand-mark {
+  position: relative;
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #0ea5e9 0%, #7c3aed 50%, #ec4899 100%);
+  color: #fff;
+  font-weight: 900;
+  font-size: 20px;
+  box-shadow: 0 12px 35px rgba(37, 99, 235, 0.25);
+  transition: all 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  overflow: hidden;
+  animation: logoGlow 3s ease-in-out infinite;
+}
+
+.brand-mark::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  animation: shimmer 3s infinite;
+}
+
+.brand-mark:hover {
+  transform: scale(1.12) rotateZ(-5deg);
+  box-shadow: 0 18px 45px rgba(124, 58, 237, 0.4);
+}
+.app-main-content {
+  padding-top: 112px;
+}
+
+@media (max-width: 768px) {
+  .app-main-content {
+    padding-top: 88px;
+  }
+}

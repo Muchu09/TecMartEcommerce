@@ -1,0 +1,330 @@
+/* Footer Component Styles */
+
+.footer-advanced {
+  background: linear-gradient(180deg, var(--color-bg-secondary) 0%, var(--color-bg) 100%);
+  border-top: 1px solid var(--color-border);
+  position: relative;
+}
+
+/* Container */
+.footer-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+}
+
+/* Wave Section */
+.footer-wave {
+  line-height: 0;
+  overflow: hidden;
+}
+
+.footer-wave svg {
+  display: block;
+  width: 100%;
+}
+
+/* CTA Section */
+.footer-cta {
+  background: linear-gradient(135deg, var(--color-primary-light) 0%, var(--color-accent-light) 100%);
+  padding: var(--space-10) 0;
+}
+
+.cta-inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  align-items: center;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .cta-inner {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+}
+
+.cta-title {
+  font-size: var(--text-xl);
+  font-weight: var(--font-bold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-2);
+}
+
+.cta-sub {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+.cta-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  width: 100%;
+  max-width: 400px;
+}
+
+@media (min-width: 640px) {
+  .cta-form {
+    flex-direction: row;
+  }
+}
+
+.cta-input {
+  flex: 1;
+}
+
+.cta-button {
+  white-space: nowrap;
+}
+
+/* Main Footer Section */
+.footer-main {
+  padding: var(--space-12) 0 var(--space-8);
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+}
+
+/* Responsive grid - stack on mobile, 2 cols on tablet, 5 cols on desktop */
+@media (min-width: 640px) {
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .col-brand {
+    grid-column: span 2;
+  }
+}
+
+@media (min-width: 1024px) {
+  .footer-grid {
+    grid-template-columns: 2fr 1fr 1fr 1fr 1.5fr;
+  }
+  
+  .col-brand {
+    grid-column: span 1;
+  }
+}
+
+/* Brand Column */
+.col-brand {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.brand-mark {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: var(--font-extrabold);
+  font-size: var(--text-lg);
+}
+
+.brand-title {
+  font-size: var(--text-xl);
+  font-weight: var(--font-bold);
+  color: var(--color-text-primary);
+}
+
+.brand-desc {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  max-width: 280px;
+}
+
+.social-row {
+  display: flex;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+.social {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  background: var(--color-bg-tertiary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-secondary);
+  transition: all var(--transition-fast);
+}
+
+.social:hover {
+  background: var(--color-primary);
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* Footer Columns */
+.footer-col h5 {
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  color: var(--color-text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-4);
+}
+
+.footer-col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.footer-col li {
+  margin: 0;
+}
+
+.footer-col a {
+  color: var(--color-text-secondary);
+  font-size: var(--text-sm);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  display: inline-block;
+}
+
+.footer-col a:hover {
+  color: var(--color-primary);
+  transform: translateX(4px);
+}
+
+/* Contact Column */
+.col-contact .contact-card {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+  color: var(--color-text-secondary);
+}
+
+.contact-label {
+  font-size: var(--text-xs);
+  font-weight: var(--font-semibold);
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 2px;
+}
+
+.contact-card a {
+  color: var(--color-text-secondary);
+  font-size: var(--text-sm);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.contact-card a:hover {
+  color: var(--color-primary);
+}
+
+.contact-icon {
+  font-size: var(--text-base);
+}
+
+/* Bottom Bar */
+.footer-bottom {
+  border-top: 1px solid var(--color-border);
+  padding: var(--space-6) 0;
+}
+
+.footer-bottom-inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  align-items: center;
+  text-align: center;
+}
+
+@media (min-width: 640px) {
+  .footer-bottom-inner {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+}
+
+.copyright {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+.copyright strong {
+  color: var(--color-text-primary);
+  font-weight: var(--font-semibold);
+}
+
+.policies {
+  display: flex;
+  gap: var(--space-6);
+}
+
+.policies a {
+  font-size: var(--text-sm);
+  color: var(--color-text-tertiary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.policies a:hover {
+  color: var(--color-primary);
+}
+
+/* Back to Top Button */
+.back-to-top {
+  position: fixed;
+  bottom: var(--space-6);
+  right: var(--space-6);
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--shadow-lg);
+  transition: all var(--transition-fast);
+  z-index: 100;
+}
+
+.back-to-top:hover {
+  background: var(--color-primary-hover);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
+}
+
+.back-to-top:active {
+  transform: translateY(-2px);
+}
+
+/* Screen reader only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

@@ -14,6 +14,7 @@ import EditItem from "./pages/EditItem";
 import ItemDetails from "./pages/ItemDetails";
 import Profile from "./pages/Profile";
 import AdminDashboard from "./pages/AdminDashboard";
+import AdminProfile from "./pages/AdminProfile";
 import AdminLogin from "./pages/AdminLogin";
 import ProductList from "./pages/ProductList";
 import AddProduct from "./pages/AddProduct";
@@ -54,6 +55,7 @@ function App() {
             <Route element={<AdminProtectedRoute />}>
               <Route element={<AdminDashboard />}>
                 <Route path="/admin/dashboard" element={<ProductList />} />
+                <Route path="/admin/profile" element={<AdminProfile />} />
                 <Route path="/admin/product/add" element={<AddProduct />} />
                 <Route path="/admin/product/edit/:id" element={<EditProduct />} />
               </Route>

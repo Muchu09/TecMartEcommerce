@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Outlet, Link, useNavigate, useLocation } from 'react-router-dom';
-import { LogOut, Package, Shield, LayoutDashboard, PlusCircle, ChevronRight, Menu, X } from 'lucide-react';
+import { LogOut, Package, Shield, LayoutDashboard, PlusCircle, ChevronRight, Menu, X, ChevronDown, Settings } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import './AdminDashboard.css';
 
@@ -8,8 +8,9 @@ export default function AdminDashboard() {
   const navigate = useNavigate();
   const location = useLocation();
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
 
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
 
   const handleLogout = () => {
     logout();
@@ -23,6 +24,7 @@ export default function AdminDashboard() {
 
   const getCurrentPageTitle = () => {
     if (location.pathname === '/admin/dashboard') return 'Products';
+    if (location.pathname === '/admin/profile') return 'Profile Settings';
     if (location.pathname === '/admin/product/add') return 'Add Product';
     if (location.pathname.startsWith('/admin/product/edit/')) return 'Edit Product';
     return 'Admin';
@@ -58,12 +60,45 @@ export default function AdminDashboard() {
         </div>
 
         {/* Admin User Info */}
-        <div className="admin-user-info">
-          <div className="admin-avatar">A</div>
-          <div className="admin-user-details">
-            <span className="admin-user-name">Administrator</span>
-            <span className="admin-role-badge">Admin</span>
+        <div className="admin-user-info-container">
+          <div 
+            className="admin-user-info"
+            onClick={() => !sidebarCollapsed && setProfileOpen(!profileOpen)}
+            style={{ cursor: sidebarCollapsed ? 'default' : 'pointer' }}
+          >
+            <div className="admin-avatar">
+              {user?.name ? user.name.substring(0, 2).toUpperCase() : 'US'}
+            </div>
+            <div className="admin-user-details">
+              <span className="admin-user-name">{user?.name || 'murshid ismayil pa'}</span>
+              <span className="admin-role-badge">{user?.role === 'admin' ? 'ADMINISTRATOR' : 'ADMINISTRATOR'}</span>
+            </div>
+            {!sidebarCollapsed && (
+              <ChevronDown 
+                size={16} 
+                className={`ml-auto transition-transform duration-200 text-slate-400 ${profileOpen ? 'rotate-180' : ''}`} 
+              />
+            )}
           </div>
+          
+          {/* Profile Dropdown */}
+          {!sidebarCollapsed && profileOpen && (
+            <div className="admin-profile-dropdown animate-in fade-in slide-in-from-top-2 duration-200">
+              <div className="dropdown-header">
+                <span className="dropdown-name">{user?.name || 'murshid ismayil pa'}</span>
+                <span className="dropdown-email">{user?.email || 'admin@tecmart.com'}</span>
+              </div>
+              <div className="dropdown-divider"></div>
+              <Link to="/admin/profile" className="dropdown-item" onClick={() => setProfileOpen(false)}>
+                <Settings size={16} className="mr-2" />
+                Edit Settings
+              </Link>
+              <button className="dropdown-item text-red-500 hover:text-red-400" onClick={handleLogout}>
+                <LogOut size={16} className="mr-2" />
+                Sign Out
+              </button>
+            </div>
+          )}
         </div>
         
         <div className="sidebar-divider"></div>

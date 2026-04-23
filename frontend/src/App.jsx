@@ -5,6 +5,7 @@ import { CartProvider } from "./contexts/CartContext";
 import Navbar from "./components/Navbar.jsx";
 import Footer from "./components/Footer.jsx";
 import ScrollToTop from "./components/ScrollToTop.jsx";
+import ErrorBoundary from "./components/ErrorBoundary.jsx";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
@@ -44,47 +45,49 @@ function UserLayout() {
 
 function App() {
   return (
-    <AuthProvider>
-      <WishlistProvider>
-        <CartProvider>
-        <BrowserRouter>
-          <ScrollToTop />
-          <Routes>
-            {/* Admin routes - NO Navbar/Footer */}
-            <Route path="/admin" element={<AdminLogin />} />
-            <Route element={<AdminProtectedRoute />}>
-              <Route element={<AdminDashboard />}>
-                <Route path="/admin/dashboard" element={<ProductList />} />
-                <Route path="/admin/profile" element={<AdminProfile />} />
-                <Route path="/admin/product/add" element={<AddProduct />} />
-                <Route path="/admin/product/edit/:id" element={<EditProduct />} />
+    <ErrorBoundary>
+      <AuthProvider>
+        <WishlistProvider>
+          <CartProvider>
+          <BrowserRouter>
+            <ScrollToTop />
+            <Routes>
+              {/* Admin routes - NO Navbar/Footer */}
+              <Route path="/admin" element={<AdminLogin />} />
+              <Route element={<AdminProtectedRoute />}>
+                <Route element={<AdminDashboard />}>
+                  <Route path="/admin/dashboard" element={<ProductList />} />
+                  <Route path="/admin/profile" element={<AdminProfile />} />
+                  <Route path="/admin/product/add" element={<AddProduct />} />
+                  <Route path="/admin/product/edit/:id" element={<EditProduct />} />
+                </Route>
               </Route>
-            </Route>
 
-            {/* User routes - WITH Navbar/Footer */}
-            <Route element={<UserLayout />}>
-              <Route path="/" element={<Marketplace />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-              <Route path="/add-item" element={<ProtectedRoute adminOnly={true}><AddItem /></ProtectedRoute>} />
-              <Route path="/edit-item/:id" element={<ProtectedRoute adminOnly={true}><EditItem /></ProtectedRoute>} />
-              <Route path="/item/:id" element={<ItemDetails />} />
-              <Route path="/wishlist" element={<ProtectedRoute><Wishlist /></ProtectedRoute>} />
-              <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-              <Route path="/help-center" element={<HelpCenter />} />
-              <Route path="/safety-tips" element={<SafetyTips />} />
-              <Route path="/cart" element={<Cart />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/careers" element={<Careers />} />
-              <Route path="/press" element={<Press />} />
-              <Route path="/blog" element={<Blog />} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
-        </CartProvider>
-      </WishlistProvider>
-    </AuthProvider>
+              {/* User routes - WITH Navbar/Footer */}
+              <Route element={<UserLayout />}>
+                <Route path="/" element={<Marketplace />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+                <Route path="/add-item" element={<ProtectedRoute adminOnly={true}><AddItem /></ProtectedRoute>} />
+                <Route path="/edit-item/:id" element={<ProtectedRoute adminOnly={true}><EditItem /></ProtectedRoute>} />
+                <Route path="/item/:id" element={<ItemDetails />} />
+                <Route path="/wishlist" element={<ProtectedRoute><Wishlist /></ProtectedRoute>} />
+                <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+                <Route path="/help-center" element={<HelpCenter />} />
+                <Route path="/safety-tips" element={<SafetyTips />} />
+                <Route path="/cart" element={<Cart />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/careers" element={<Careers />} />
+                <Route path="/press" element={<Press />} />
+                <Route path="/blog" element={<Blog />} />
+              </Route>
+            </Routes>
+          </BrowserRouter>
+          </CartProvider>
+        </WishlistProvider>
+      </AuthProvider>
+    </ErrorBoundary>
   );
 }
 

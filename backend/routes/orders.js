@@ -7,13 +7,25 @@ const {
   getOrderById,
 } = require('../controllers/orderController');
 
+const { body } = require('express-validator');
+const validateRequest = require('../middleware/validateRequest');
+
 // All paths will use auth middleware
 router.use(auth);
 
 // @route   POST /api/orders
 // @desc    Create new order
 // @access  Private
-router.post('/', createOrder);
+router.post(
+  '/',
+  [
+    body('itemId').isMongoId().withMessage('Valid Item ID is required'),
+    body('shippingAddress').notEmpty().withMessage('Shipping address is required').trim().escape(),
+    body('contactPhone').notEmpty().withMessage('Contact phone is required').trim().escape(),
+    validateRequest
+  ],
+  createOrder
+);
 
 // @route   GET /api/orders/myorders
 // @desc    Get logged in user orders

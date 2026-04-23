@@ -16,7 +16,8 @@ const getItems = async (req, res, next) => {
       .populate('seller', 'username email')
       .sort({ createdAt: -1 })
       .skip(startIndex)
-      .limit(limit);
+      .limit(limit)
+      .lean();
     
     res.json({
         success: true,
@@ -41,7 +42,9 @@ const getItems = async (req, res, next) => {
  */
 const getItem = async (req, res, next) => {
   try {
-    const item = await Item.findById(req.params.id).populate('seller', 'username email');
+    const item = await Item.findById(req.params.id)
+      .populate('seller', 'username email')
+      .lean();
     
     if (!item) {
       return res.status(404).json({ message: 'Item not found' });

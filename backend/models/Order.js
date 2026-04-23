@@ -32,4 +32,8 @@ const orderSchema = new mongoose.Schema({
   },
 });
 
+// Add indexes for performance optimization
+orderSchema.index({ user: 1, createdAt: -1 });
+orderSchema.index({ item: 1 });
+
 module.exports = mongoose.model('Order', orderSchema);

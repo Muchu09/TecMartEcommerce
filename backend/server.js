@@ -5,6 +5,7 @@ const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const rateLimit = require('express-rate-limit');
 const { ipKeyGenerator } = require('express-rate-limit');
+const compression = require('compression');
 const connectDB = require('./config/database');
 
 dotenv.config();
@@ -56,14 +57,14 @@ app.use('/api/admin/login', authLimiter);
 app.use('/api/', generalLimiter);
 
 // Basic Middleware
-const allowedOrigins = process.env.FRONTEND_URL
+const allowedOrigins = process.env.NODE_ENV === 'production' && process.env.FRONTEND_URL
   ? process.env.FRONTEND_URL.split(',').map((origin) => origin.trim())
-  : ['http://localhost:5173', 'http://localhost:5174', 'http://localhost:5175',
-     'http://localhost:5176', 'http://localhost:5177', 'http://localhost:5178',
-     'http://localhost:5184', 'http://localhost:5186', 'http://localhost:5188'];
+  : (process.env.FRONTEND_URL ? process.env.FRONTEND_URL.split(',').map((origin) => origin.trim()) : ['http://localhost:5173']);
 
 if (process.env.NODE_ENV !== 'production') {
   console.log('CORS allowed origins:', allowedOrigins);
+} else if (!process.env.FRONTEND_URL) {
+  console.warn('⚠️ WARNING: FRONTEND_URL is not set in production. CORS might reject all requests.');
 }
 
 app.use(cors({
@@ -76,6 +77,7 @@ app.use(cors({
   credentials: true,
 }));
 app.use(express.json({ limit: '10kb' })); // Limit payload size
+app.use(compression()); // Compress API responses
 
 // Routes
 app.use('/api/auth', require('./routes/auth'));

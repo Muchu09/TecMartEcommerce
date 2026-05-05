@@ -12,7 +12,10 @@ const {
   getUsers,
   deleteUser,
   getOrders,
-  updateOrderStatus
+  updateOrderStatus,
+  getTickets,
+  updateTicket,
+  deleteTicket,
 } = require('../controllers/adminController');
 
 // All paths will be prefixed with /api/admin
@@ -29,5 +32,10 @@ router.get('/users', [auth, adminCheck], getUsers);
 router.delete('/users/:id', [auth, adminCheck], deleteUser);
 router.get('/orders', [auth, adminCheck], getOrders);
 router.put('/orders/:id', [auth, adminCheck], updateOrderStatus);
+
+// Support Tickets
+router.get('/tickets', [auth, adminCheck], getTickets);
+router.put('/tickets/:id', [auth, adminCheck], updateTicket);
+router.delete('/tickets/:id', [auth, adminCheck], deleteTicket);
 
 module.exports = router;

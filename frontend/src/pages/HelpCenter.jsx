@@ -5,6 +5,8 @@ import {
   ShoppingCart, ShieldCheck, Truck, RotateCcw, CreditCard,
   UserCheck, Package, HelpCircle
 } from 'lucide-react';
+import { ticketsAPI } from '../services/api';
+import './HelpCenter.css';
 
 /* ─── FAQ Data ───────────────────────────────────────────────── */
 const FAQS = [
@@ -55,29 +57,29 @@ function Modal({ isOpen, onClose, title, children, maxWidth = '640px' }) {
   if (!isOpen) return null;
   return (
     <div
-      className="fixed inset-0 z-[200] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+      className="modal-overlay"
       role="dialog"
       aria-modal="true"
       aria-labelledby="modal-title"
       onClick={(e) => e.target === e.currentTarget && onClose()}
     >
       <div
-        className="bg-white rounded-3xl shadow-2xl w-full flex flex-col"
+        className="modal-container"
         style={{ maxWidth, maxHeight: '90vh' }}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-5 border-b border-gray-100">
+        <div className="modal-header">
           <h2 id="modal-title" className="text-xl font-bold text-gray-900">{title}</h2>
           <button
             onClick={onClose}
-            className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-500 hover:text-gray-800 transition-colors"
+            className="modal-close-btn"
             aria-label="Close"
           >
             <X size={18} />
           </button>
         </div>
         {/* Scrollable body */}
-        <div className="overflow-y-auto p-6 flex-1">
+        <div className="modal-body">
           {children}
         </div>
       </div>
@@ -277,9 +279,21 @@ function TicketForm({ onClose }) {
     const errs = validate();
     if (Object.keys(errs).length) { setErrors(errs); return; }
     setLoading(true);
-    await new Promise(r => setTimeout(r, 1500)); // Simulate API submit
-    setLoading(false);
-    setSubmitted(true);
+    try {
+      await ticketsAPI.submit({
+        name: form.name,
+        email: form.email,
+        category: form.category,
+        subject: form.subject,
+        message: form.message,
+      });
+      setSubmitted(true);
+    } catch (err) {
+      const msg = err?.response?.data?.message || 'Failed to submit ticket. Please try again.';
+      setErrors(prev => ({ ...prev, _global: msg }));
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (submitted) {
@@ -304,6 +318,11 @@ function TicketForm({ onClose }) {
   return (
     <form onSubmit={handleSubmit} noValidate className="space-y-4">
       <p className="text-sm text-gray-500">Fill in the form below and our team will get back to you within 24 hours.</p>
+      {errors._global && (
+        <div className="flex items-center gap-2 text-sm text-red-600 bg-red-50 border border-red-200 rounded-xl px-4 py-3">
+          <AlertCircle size={15} className="flex-shrink-0" />{errors._global}
+        </div>
+      )}
 
       {/* Name + Email */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

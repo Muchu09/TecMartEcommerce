@@ -17,7 +17,6 @@ const register = async (req, res, next) => {
   const { username, email, password } = req.body;
 
   try {
-    // Basic input check
     if (!username) {
       return res.status(400).json({ message: 'Username is required' });
     }
@@ -38,31 +37,18 @@ const register = async (req, res, next) => {
 
     await user.save();
 
-    const payload = {
-      user: {
-        id: user.id,
-        role: user.role,
-      },
-    };
-
+    const payload = { user: { id: user.id, role: user.role } };
     const secret = process.env.JWT_SECRET;
-    if (!secret) {
-        throw new Error('JWT_SECRET is not defined');
-    }
-
-    jwt.sign(
-      payload,
-      secret,
-      { expiresIn: '2h' },
-      (err, token) => {
-        if (err) throw err;
-        res.status(201).json({ 
-            success: true,
-            token, 
-            user: { id: user.id, username: user.username, email: user.email, role: user.role } 
-        });
-      }
-    );
+    
+    jwt.sign(payload, secret, { expiresIn: '2h' }, (err, token) => {
+      if (err) throw err;
+      res.status(201).json({ 
+        success: true, 
+        message: 'Registration successful.',
+        token, 
+        user: { id: user.id, username: user.username, email: user.email, role: user.role } 
+      });
+    });
   } catch (err) {
     next(err);
   }
@@ -97,31 +83,18 @@ const login = async (req, res, next) => {
       return res.status(400).json({ message: 'Invalid credentials' });
     }
 
-    const payload = {
-      user: {
-        id: user.id,
-        role: user.role,
-      },
-    };
-
+    const payload = { user: { id: user.id, role: user.role } };
     const secret = process.env.JWT_SECRET;
-    if (!secret) {
-        throw new Error('JWT_SECRET is not defined');
-    }
-
-    jwt.sign(
-      payload,
-      secret,
-      { expiresIn: '2h' },
-      (err, token) => {
-        if (err) throw err;
-        res.json({ 
-            success: true,
-            token, 
-            user: { id: user.id, username: user.username, email: user.email, role: user.role } 
-        });
-      }
-    );
+    
+    jwt.sign(payload, secret, { expiresIn: '2h' }, (err, token) => {
+      if (err) throw err;
+      res.json({ 
+        success: true, 
+        message: 'Login successful.',
+        token, 
+        user: { id: user.id, username: user.username, email: user.email, role: user.role } 
+      });
+    });
   } catch (err) {
     next(err);
   }
@@ -129,5 +102,5 @@ const login = async (req, res, next) => {
 
 module.exports = {
   register,
-  login,
-};
+  login
+};

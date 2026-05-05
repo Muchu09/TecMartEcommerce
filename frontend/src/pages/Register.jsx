@@ -15,6 +15,7 @@ export default function Register() {
   const [showConfirm, setShowConfirm] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [successMsg, setSuccessMsg] = useState('');
   const [agreeToTerms, setAgreeToTerms] = useState(false);
 
   const { login } = useAuth();
@@ -45,6 +46,7 @@ export default function Register() {
 
     try {
       const response = await authAPI.register(formData.username, formData.email, formData.password);
+      setSuccessMsg(response.message || 'Registration successful.');
       login(response.token);
       navigate('/');
     } catch (err) {
@@ -70,6 +72,12 @@ export default function Register() {
         {error && (
           <div className="mb-4 p-3 rounded-lg" style={{ background: 'var(--color-danger-light)', border: '1px solid var(--color-danger)', color: 'var(--color-danger)' }}>
             {error}
+          </div>
+        )}
+
+        {successMsg && (
+          <div className="mb-4 p-3 rounded-lg" style={{ background: 'var(--color-success-light)', border: '1px solid var(--color-success)', color: 'var(--color-success)' }}>
+            {successMsg}
           </div>
         )}
 

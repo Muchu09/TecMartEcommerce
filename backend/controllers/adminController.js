@@ -1,6 +1,7 @@
 const Item = require('../models/Item');
 const User = require('../models/User');
 const Order = require('../models/Order');
+const SupportTicket = require('../models/SupportTicket');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
@@ -266,6 +267,64 @@ exports.updateOrderStatus = async (req, res, next) => {
     }
 
     res.json({ success: true, data: order });
+  } catch (err) {
+    next(err);
+  }
+};
+
+/**
+ * @desc    Get all support tickets (optionally filtered by status)
+ * @route   GET /api/admin/tickets?status=pending|resolved|all
+ */
+exports.getTickets = async (req, res, next) => {
+  try {
+    const { status } = req.query;
+    const filter = status && status !== 'all' ? { status } : {};
+    const tickets = await SupportTicket.find(filter).sort({ createdAt: -1 });
+    res.json({ success: true, count: tickets.length, data: tickets });
+  } catch (err) {
+    next(err);
+  }
+};
+
+/**
+ * @desc    Update a ticket's status and/or add an admin response
+ * @route   PUT /api/admin/tickets/:id
+ */
+exports.updateTicket = async (req, res, next) => {
+  try {
+    const { status, adminResponse } = req.body;
+    const update = {};
+    if (status) update.status = status;
+    if (adminResponse !== undefined) update.adminResponse = adminResponse;
+    if (status === 'resolved') update.resolvedAt = new Date();
+    if (status === 'pending') update.resolvedAt = null;
+
+    const ticket = await SupportTicket.findByIdAndUpdate(
+      req.params.id,
+      { $set: update },
+      { new: true, runValidators: true }
+    );
+    if (!ticket) {
+      return res.status(404).json({ success: false, message: 'Ticket not found' });
+    }
+    res.json({ success: true, data: ticket });
+  } catch (err) {
+    next(err);
+  }
+};
+
+/**
+ * @desc    Delete a support ticket
+ * @route   DELETE /api/admin/tickets/:id
+ */
+exports.deleteTicket = async (req, res, next) => {
+  try {
+    const ticket = await SupportTicket.findByIdAndDelete(req.params.id);
+    if (!ticket) {
+      return res.status(404).json({ success: false, message: 'Ticket not found' });
+    }
+    res.json({ success: true, message: 'Ticket deleted successfully' });
   } catch (err) {
     next(err);
   }

@@ -20,6 +20,8 @@ import AdminLogin from "./pages/AdminLogin";
 import ProductList from "./pages/ProductList";
 import AddProduct from "./pages/AddProduct";
 import EditProduct from "./pages/EditProduct";
+import AdminTickets from "./pages/AdminTickets";
+import AdminOrders from "./pages/AdminOrders";
 import HelpCenter from "./pages/HelpCenter";
 import SafetyTips from "./pages/SafetyTips";
 import Wishlist from "./pages/Wishlist";
@@ -60,6 +62,8 @@ function App() {
                   <Route path="/admin/profile" element={<AdminProfile />} />
                   <Route path="/admin/product/add" element={<AddProduct />} />
                   <Route path="/admin/product/edit/:id" element={<EditProduct />} />
+                  <Route path="/admin/tickets" element={<AdminTickets />} />
+                  <Route path="/admin/orders" element={<AdminOrders />} />
                 </Route>
               </Route>
 

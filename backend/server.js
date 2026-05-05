@@ -59,7 +59,7 @@ app.use('/api/', generalLimiter);
 // Basic Middleware
 const allowedOrigins = process.env.NODE_ENV === 'production' && process.env.FRONTEND_URL
   ? process.env.FRONTEND_URL.split(',').map((origin) => origin.trim())
-  : (process.env.FRONTEND_URL ? process.env.FRONTEND_URL.split(',').map((origin) => origin.trim()) : ['http://localhost:5173']);
+  : (process.env.FRONTEND_URL ? process.env.FRONTEND_URL.split(',').map((origin) => origin.trim()) : ['http://localhost:5173', 'http://localhost:5174', 'http://localhost:5175']);
 
 if (process.env.NODE_ENV !== 'production') {
   console.log('CORS allowed origins:', allowedOrigins);
@@ -85,6 +85,7 @@ app.use('/api/users', require('./routes/users'));
 app.use('/api/items', require('./routes/items'));
 app.use('/api/admin', require('./routes/adminRoutes'));
 app.use('/api/orders', require('./routes/orders'));
+app.use('/api/tickets', require('./routes/tickets'));
 
 // 404 catch-all for unknown routes
 app.use((req, res) => {

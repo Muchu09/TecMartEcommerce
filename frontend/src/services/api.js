@@ -93,6 +93,32 @@ export const adminAPI = {
   getStats: async () => {
     return await api.get('/admin/stats');
   },
+  // Orders (admin)
+  getOrders: async () => {
+    return await api.get('/admin/orders');
+  },
+  updateOrderStatus: async (id, status) => {
+    return await api.put(`/admin/orders/${id}`, { status });
+  },
+  // Support Tickets (admin)
+  getTickets: async (status = 'all') => {
+    return await api.get(`/admin/tickets?status=${status}`);
+  },
+  updateTicket: async (id, data) => {
+    return await api.put(`/admin/tickets/${id}`, data);
+  },
+  deleteTicket: async (id) => {
+    return await api.delete(`/admin/tickets/${id}`);
+  },
+};
+
+/**
+ * Support Tickets API (public)
+ */
+export const ticketsAPI = {
+  submit: async (ticketData) => {
+    return await api.post('/tickets', ticketData);
+  },
 };
 
 /**

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Outlet, Link, useNavigate, useLocation } from 'react-router-dom';
-import { LogOut, Package, Shield, LayoutDashboard, PlusCircle, ChevronRight, Menu, X, ChevronDown, Settings } from 'lucide-react';
+import { LogOut, Package, Shield, LayoutDashboard, PlusCircle, ChevronRight, Menu, X, ChevronDown, Settings, TicketCheck, ShoppingBag } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import './AdminDashboard.css';
 
@@ -18,8 +18,10 @@ export default function AdminDashboard() {
   };
 
   const navItems = [
-    { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, path: '/admin/dashboard' },
-    { id: 'add-product', label: 'Add Product', icon: PlusCircle, path: '/admin/product/add' },
+    { id: 'dashboard', label: 'Dashboard',       icon: LayoutDashboard, path: '/admin/dashboard' },
+    { id: 'add-product', label: 'Add Product',   icon: PlusCircle,      path: '/admin/product/add' },
+    { id: 'orders',    label: 'Orders',           icon: ShoppingBag,     path: '/admin/orders' },
+    { id: 'tickets',   label: 'Support Tickets',  icon: TicketCheck,     path: '/admin/tickets' },
   ];
 
   const getCurrentPageTitle = () => {
@@ -27,6 +29,8 @@ export default function AdminDashboard() {
     if (location.pathname === '/admin/profile') return 'Profile Settings';
     if (location.pathname === '/admin/product/add') return 'Add Product';
     if (location.pathname.startsWith('/admin/product/edit/')) return 'Edit Product';
+    if (location.pathname === '/admin/tickets') return 'Support Tickets';
+    if (location.pathname === '/admin/orders') return 'Order Management';
     return 'Admin';
   };
 
@@ -35,6 +39,8 @@ export default function AdminDashboard() {
     if (item.id === 'dashboard' && location.pathname === '/admin/dashboard') return true;
     if (item.id === 'add-product' && location.pathname === '/admin/product/add') return true;
     if (item.id === 'add-product' && location.pathname.startsWith('/admin/product/edit/')) return true;
+    if (item.id === 'tickets' && location.pathname === '/admin/tickets') return true;
+    if (item.id === 'orders'  && location.pathname === '/admin/orders') return true;
     return false;
   };
 

@@ -11,11 +11,8 @@ export default function Marketplace() {
   const { wishlist: globalWishlist, addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const initialSearch = searchParams.get("search") || "";
-  const initialFilter = searchParams.get("category") || "All";
-
-  const [search, setSearch] = useState(initialSearch);
-  const [filter, setFilter] = useState(initialFilter);
+  const search = searchParams.get("search") || "";
+  const filter = searchParams.get("category") || "All";
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -52,22 +49,21 @@ export default function Marketplace() {
     fetchData();
   }, []);
 
-  // Update URL params
-  useEffect(() => {
-    const params = new URLSearchParams();
-    if (search) params.set("search", search);
-    if (filter !== "All") params.set("category", filter);
+  const handleSearchChange = (value) => {
+    const params = new URLSearchParams(searchParams);
+    if (value) {
+      params.set("search", value);
+    } else {
+      params.delete("search");
+    }
     setSearchParams(params, { replace: true });
-  }, [search, filter, setSearchParams]);
+  };
 
-  // Sync state if URL params change externally
-  useEffect(() => {
-    const querySearch = searchParams.get("search") || "";
-    const queryFilter = searchParams.get("category") || "All";
-
-    if (search !== querySearch) setSearch(querySearch);
-    if (filter !== queryFilter) setFilter(queryFilter);
-  }, [searchParams]);
+  const handleCategoryChange = (cat) => {
+    const params = new URLSearchParams(); // Starts fresh, clearing search
+    if (cat !== "All") params.set("category", cat);
+    setSearchParams(params); // Pushes to history
+  };
 
   useEffect(() => {
     localStorage.setItem("purchased", JSON.stringify(purchased));
@@ -78,8 +74,14 @@ export default function Marketplace() {
 
   const filteredItems = useMemo(() => {
     return items.filter((item) => {
-      const matchesSearch = item.title?.toLowerCase().includes(search.toLowerCase());
+      const searchLower = search.toLowerCase().trim();
+      const titleMatches = item.title?.toLowerCase().includes(searchLower);
+      const categoryMatches = item.category?.toLowerCase().includes(searchLower);
+      const descMatches = item.description?.toLowerCase().includes(searchLower);
+      
+      const matchesSearch = !searchLower || titleMatches || categoryMatches || descMatches;
       const matchesFilter = filter === "All" || item.category === filter;
+      
       return matchesSearch && matchesFilter;
     });
   }, [items, search, filter]);
@@ -136,11 +138,11 @@ export default function Marketplace() {
                 type="text"
                 placeholder="Search smartphones, laptops, clothing..."
                 value={search}
-                onChange={(e) => setSearch(e.target.value)}
+                onChange={(e) => handleSearchChange(e.target.value)}
                 className="w-full bg-transparent border-none text-white placeholder:text-white/60 focus:outline-none font-medium text-lg py-3 pr-4"
               />
               {search && (
-                <button onClick={() => setSearch('')} className="pr-4 text-white/50 hover:text-white outline-none transition-colors">
+                <button onClick={() => handleSearchChange('')} className="pr-4 text-white/50 hover:text-white outline-none transition-colors">
                   <X size={20} />
                 </button>
               )}
@@ -172,25 +174,25 @@ export default function Marketplace() {
       </div>
 
       {/* ── Main Marketplace Body ── */}
-      <div className="px-4 md:px-10 lg:px-12 max-w-[1600px] mx-auto flex flex-col lg:flex-row gap-8 items-start">
+      <div className="market-layout">
 
         {/* Sticky Filters Sidebar */}
-        <aside className="w-full lg:w-64 flex-shrink-0 lg:sticky lg:top-24 z-20">
+        <aside className="market-sidebar">
           <div className="card text-left p-6" style={{ borderColor: 'var(--color-border)' }}>
             <div className="flex items-center gap-3 mb-6 pb-4" style={{ borderBottom: '1px solid var(--color-border)' }}>
               <SlidersHorizontal size={20} style={{ color: 'var(--color-primary)' }} />
               <h2 className="text-lg font-black tracking-tight" style={{ color: 'var(--color-text-primary)' }}>Categories</h2>
             </div>
 
-            <div className="flex lg:flex-col gap-2 overflow-x-auto lg:overflow-visible pb-4 lg:pb-0 filter-scroll">
+            <div className="market-categories filter-scroll">
               {categories.map((cat) => (
                 <button
                   key={cat}
-                  onClick={() => setFilter(cat)}
-                  className={`flex-shrink-0 text-left px-5 py-3 rounded-2xl font-bold text-sm transition-all duration-300 flex items-center justify-between group
+                  onClick={() => handleCategoryChange(cat)}
+                  className={`market-category-btn group
                         ${filter === cat
-                      ? 'btn-primary shadow-md'
-                      : 'bg-transparent hover:bg-gray-50'}`}
+                      ? 'active shadow-md'
+                      : ''}`}
                   style={filter === cat ? {} : { color: 'var(--color-text-secondary)' }}
                 >
                   <span>{cat}</span>
@@ -202,7 +204,7 @@ export default function Marketplace() {
         </aside>
 
         {/* Products Grid Area */}
-        <main className="flex-1 w-full min-w-0">
+        <main className="market-main">
 
           {/* Results Header */}
           <div className="card mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 px-6 py-4 animate-in fade-in duration-500">
@@ -218,7 +220,7 @@ export default function Marketplace() {
           </div>
 
           {/* Grid Layout */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 xl:gap-8">
+          <div className="market-grid">
             {loading ? (
               // Skeletons
               Array.from({ length: 8 }).map((_, i) => (
@@ -247,7 +249,7 @@ export default function Marketplace() {
                 <p className="max-w-md font-medium" style={{ color: 'var(--color-text-secondary)' }}>Try adjusting your search criteria or selecting a different category from the filters.</p>
                 {(search || filter !== "All") && (
                   <button
-                    onClick={() => { setSearch(''); setFilter('All'); }}
+                    onClick={() => setSearchParams(new URLSearchParams())}
                     className="btn btn-outline mt-6"
                   >
                     Clear All Filters

@@ -40,10 +40,6 @@ const userSchema = new mongoose.Schema({
     notifications: { type: Boolean, default: true },
     darkTheme: { type: Boolean, default: false },
   },
-  twoFactorEnabled: {
-    type: Boolean,
-    default: false,
-  },
   loginHistory: [{
     date: { type: Date, default: Date.now },
     device: String,

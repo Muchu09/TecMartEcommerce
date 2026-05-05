@@ -7,9 +7,9 @@
   overflow: hidden;
   background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
   color: var(--color-text-inverse);
-  padding: 80px 32px;
+  padding: 48px 32px;
   border-radius: var(--radius-2xl);
-  margin-bottom: 40px;
+  margin-bottom: 24px;
   box-shadow: var(--shadow-lg);
 }
 
@@ -75,4 +75,98 @@
 .search-container:focus-within {
   box-shadow: 0 8px 24px rgba(255, 77, 109, 0.12);
   border-color: #FF4D6D;
+}
+
+/* ---- Layout & Grid (Replacing missing Tailwind) ---- */
+.market-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: flex-start;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+@media (min-width: 1024px) {
+  .market-layout {
+    flex-direction: row;
+    padding: 0 48px;
+  }
+}
+
+.market-sidebar {
+  width: 100%;
+  flex-shrink: 0;
+}
+
+@media (min-width: 1024px) {
+  .market-sidebar {
+    width: 250px;
+    position: sticky;
+    top: 96px;
+    z-index: 20;
+  }
+}
+
+.market-main {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+}
+
+.market-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+  align-items: stretch;
+}
+
+@media (min-width: 1280px) {
+  .market-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 24px;
+  }
+}
+
+/* ---- Categories Sidebar ---- */
+.market-categories {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 16px;
+}
+
+@media (min-width: 1024px) {
+  .market-categories {
+    flex-direction: column;
+    overflow-x: visible;
+    padding-bottom: 0;
+  }
+}
+
+.market-category-btn {
+  flex-shrink: 0;
+  text-align: left;
+  padding: 12px 20px;
+  border-radius: var(--radius-xl);
+  font-weight: var(--font-bold);
+  font-size: var(--text-sm);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-secondary);
+}
+
+.market-category-btn:hover {
+  background: var(--color-bg-secondary);
+}
+
+.market-category-btn.active {
+  background: var(--color-primary);
+  color: var(--color-text-inverse) !important;
 }
